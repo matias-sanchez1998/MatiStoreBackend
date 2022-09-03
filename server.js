@@ -28,7 +28,7 @@ function handleDisconnect() {
     connection = mysql.createConnection(dbOption); // Recreate the connection, since
     connection.connect(() => {
         console.log('HOLA');
-        connection.query('SET session wait_timeout=3000')                           
+        connection.query("SHOW VARIABLES LIKE 'max_connections'")                           
         setTimeout(handleDisconnect, 2000); 
     });
   
@@ -62,7 +62,7 @@ app.get('/api/category', (req, res) => {
             if (err) return res.send(err);
 
             res.json(rows)
-            
+            connection.end();
         })
     })
 });
